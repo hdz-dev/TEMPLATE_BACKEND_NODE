@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+//** npx prisma migrate dev --- comando del OCR para migrar el modelo **//
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tramites {
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) 
+  tramite        String
+  tipoRegistro   String
+  usuario        String
+  identificacion Int
+  serie          Int     @id  @unique @default(autoincrement())
+  valorTotal     Int
+  funcionario    String
+  telefono       String
+  retFuete       Int?
+  fechaPago      DateTime?
+  refPago        Int?
+  derechos       Int
+  senDem         Int
+  senCon         Int
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// id         Int      @id @unique @default(autoincrement())
+
+model users {
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  id         String @unique
+  email      String @unique
+  password   String
+  username   String
+  documentID Int
+  role       String?
+  avatar     String?
+  active     Boolean  @default(false)
+}
